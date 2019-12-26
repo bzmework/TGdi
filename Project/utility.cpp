@@ -1,9 +1,9 @@
 
 #include "utility.h"
 
-//#pragma region ×Ö·û´®²Ù×÷
+//#pragma region å­—ç¬¦ä¸²æ“ä½œ
 
-//×Ö·û´®Æ¥Åä
+//å­—ç¬¦ä¸²åŒ¹é…
 bool Utility::match(const tchar* text, const tchar* filter)
 {
 	if(text == NULL || filter == NULL)
@@ -727,7 +727,7 @@ int32 Utility::memcmp(const void* dst, const void* src, uint32 n)
 
 //#pragma endregion
 
-//#pragma region ×Ö·û´®¸ñÊ½»¯
+//#pragma region å­—ç¬¦ä¸²æ ¼å¼åŒ–
 
 tchar* Utility::digits = _T("0123456789abcdefghijklmnopqrstuvwxyz");
 tchar* Utility::upperdigits = _T("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
