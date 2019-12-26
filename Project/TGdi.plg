@@ -1,0 +1,51 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TGdi - Win32 Release MinDependency--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F3.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib msimg32.lib gdiplus.lib /nologo /subsystem:windows /dll /incremental:no /pdb:"ReleaseMinDependency/TGdi.pdb" /machine:I386 /def:".\TGdi.def" /out:"ReleaseMinDependency/TGdi.dll" /implib:"ReleaseMinDependency/TGdi.lib" 
+.\ReleaseMinDependency\StdAfx.obj
+.\ReleaseMinDependency\TGdi.obj
+.\ReleaseMinDependency\win32gdi.obj
+.\ReleaseMinDependency\win32gdip.obj
+.\ReleaseMinDependency\WinGdi.obj
+.\ReleaseMinDependency\WinGdip.obj
+.\ReleaseMinDependency\TGdi.res
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F3.tmp"
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F4.bat" with contents
+[
+@echo off
+regsvr32 /s /c ".\ReleaseMinDependency\TGdi.dll"
+echo regsvr32 exec. time > ".\ReleaseMinDependency\regsvr32.trg"
+]
+Creating command line "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F4.bat"
+Linking...
+   Creating library ReleaseMinDependency/TGdi.lib and object ReleaseMinDependency/TGdi.exp
+<h3>Output Window</h3>
+Performing registration
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F8.tmp" with contents
+[
+/nologo /o"ReleaseMinDependency/TGdi.bsc" 
+.\ReleaseMinDependency\StdAfx.sbr
+.\ReleaseMinDependency\TGdi.sbr
+.\ReleaseMinDependency\win32gdi.sbr
+.\ReleaseMinDependency\win32gdip.sbr
+.\ReleaseMinDependency\WinGdi.sbr
+.\ReleaseMinDependency\WinGdip.sbr]
+Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP1F8.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+TGdi.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

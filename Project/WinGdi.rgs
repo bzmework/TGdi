@@ -1,0 +1,26 @@
+HKCR
+{
+	TGdi.WinGdi.1 = s 'WinGdi Class'
+	{
+		CLSID = s '{F968F3E8-4AB0-451D-B176-6999E705A3FD}'
+	}
+	TGdi.WinGdi = s 'WinGdi Class'
+	{
+		CLSID = s '{F968F3E8-4AB0-451D-B176-6999E705A3FD}'
+		CurVer = s 'TGdi.WinGdi.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {F968F3E8-4AB0-451D-B176-6999E705A3FD} = s 'WinGdi Class'
+		{
+			ProgID = s 'TGdi.WinGdi.1'
+			VersionIndependentProgID = s 'TGdi.WinGdi'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{6063AA6A-7531-4193-A164-DFCF60D9A021}'
+		}
+	}
+}

@@ -1,0 +1,1285 @@
+// TGdi.idl : IDL source for TGdi.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (TGdi.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	
+	/*
+	GDI
+	*/
+
+	[
+		object,
+		uuid(BF3DE9B1-07D6-40D5-AF6C-FA3AA0D9D8FB),
+		dual,
+		helpstring("IWinGdi Interface"),
+		pointer_default(unique)
+	]
+	interface IWinGdi : IDispatch
+	{	
+		typedef struct TPoint
+		{
+			[helpstring("x轴")]
+			int x;
+			[helpstring("y轴")]
+			int y;
+		} TPoint;
+		
+		[v1_enum, helpstring("画刷类型")]
+		typedef enum BrushTypeConstants
+		{								
+			[helpstring("缺省画刷")] 
+			btDefaultBrush = 0,
+			[helpstring("实心画刷")] 
+			btSolidBrush = 1,
+			[helpstring("指定样式、颜色、图案的画刷")] 
+			btIndirectBrush = 2,
+			[helpstring("指定颜色的图案画刷")] 
+			btHatchBrush = 3,
+			[helpstring("位图画刷")] 
+			btPatternBrush = 4
+		} BrushTypeConstants; 
+		
+		[v1_enum, helpstring("画刷样式")]
+		typedef enum BrushStyleConstants
+		{
+			[helpstring("Solid brush.")] 
+			bsSolid = 0,
+			[helpstring("Same as BS_HOLLOW.")]
+			bsNull = 1,
+			[helpstring("Hatched brush.")]
+			bsHatched = 2,
+			[helpstring("Pattern brush defined by a memory bitmap.")]
+			bsPattern = 3,
+			[helpstring("Indexed.")]
+			bsIndexed = 4,
+			[helpstring("A pattern brush defined by a device-independent bitmap (DIB) specification. If lbStyle is BS_DIBPATTERN, the lbHatch member contains a handle to a packed DIB.")]
+			bsDibPattern = 5,
+			[helpstring("A pattern brush defined by a device-independent bitmap (DIB) specification. If lbStyle is BS_DIBPATTERNPT, the lbHatch member contains a pointer to a packed DIB.")]
+			bsDibPatternPt = 6,
+			[helpstring("Same as BS_PATTERN.")]
+			bsPattern8x8 = 7,
+			[helpstring("Same as BS_DIBPATTERN.")]
+			bsDibPattern8x8 = 8,
+			[helpstring("Mono pattern.")]
+			bsMonoPattern = 9,
+			[helpstring("Hollow brush.")]
+			bsHollow = 1
+		} BrushStyleConstants;
+
+		[v1_enum, helpstring("画刷阴影样式")]
+		typedef enum BrushHatchConstants
+		{
+			[helpstring("Horizontal hatch")]
+			hsHorizontal = 0,
+			[helpstring("Vertical hatch")]
+			hsVertical = 1,
+			[helpstring("A 45-degree downward, left-to-right hatch")]
+			hsFdiagonal = 2,
+			[helpstring("A 45-degree upward, left-to-right hatch")]
+			hsBdiagonal = 3,
+			[helpstring("Horizontal and vertical cross-hatch")]
+			hsCross = 4,
+			[helpstring("45-degree crosshatch")]
+			hsDiagcross = 5,
+			[helpstring("Solid hatch")]
+			hsSolid = 8
+		} BrushHatchConstants;
+
+		[v1_enum, helpstring("画笔类型")]
+		typedef enum PenTypeConstants
+		{
+			[helpstring("缺省画笔")]
+			ptDefaultPen = 0,
+			[helpstring("实心画笔")]
+			ptSolidPen = 1,
+			[helpstring("指定样式、宽度、颜色的画笔")]
+			ptIndirectPen = 2
+		} PenTypeConstants;
+
+		[v1_enum, helpstring("画笔样式")]
+		typedef enum PenStyleConstants
+		{
+			[helpstring("The pen is solid.")]
+			psSolid = 0,
+			[helpstring("The pen is dashed. -------")]
+			psDash = 1,
+			[helpstring("The pen is dotted. .......")]
+			psDot = 2,
+			[helpstring("he pen has alternating dashes and dots. _._._._")]
+			psDashDot = 3,
+			[helpstring("The pen has dashes and double dots. _.._.._")]
+			psDashDotDot = 4,
+			[helpstring("The pen is invisible.")]
+			psNull = 5,
+			[helpstring("Pen is solid.")]
+			psInsideFrame = 6
+		} PenStyleConstants;
+
+		[v1_enum, helpstring("字体类型")]
+		typedef enum FontTypeConstants
+		{
+			[helpstring("缺省字体")]
+			ftDefaultFont	= 0x0,
+			[helpstring("系统字体")]
+			ftSystemFont	= 0x1,
+			[helpstring("指定字体")]
+			ftIndirectFont	= 0x2,
+			[helpstring("存在字体")]
+			ftExistFont		= 0x3
+		} FontTypeConstants;
+
+		[v1_enum, helpstring("渐变方向")]
+		typedef enum GradientDirectionConstants
+		{
+			[helpstring("水平方向")]
+			dHorizontal		= 0x0,
+			[helpstring("垂直方向")]
+			dVertical		= 0x1
+		} GradientDirectionConstants;
+  
+		[v1_enum, helpstring("文本格式")]
+		typedef enum TextFormatConstants
+		{
+			[helpstring("顶端对齐")]
+			dtTop					= 0x00000000,
+			[helpstring("左边对齐")]
+			dtLeft					= 0x00000000,
+			[helpstring("水平居中")]
+			dtCenter				= 0x00000001,
+			[helpstring("右端对齐")]
+			dtRight					= 0x00000002,
+			[helpstring("垂直居中")]
+			dtVCenter				= 0x00000004,
+			[helpstring("底端对齐")]
+			dtBottom				= 0x00000008,
+			[helpstring("自动换行")]
+			dtWordBreak				= 0x00000010,
+			[helpstring("单行")]
+			dtSingleLine			= 0x00000020,
+			[helpstring("Expands tab characters.")]
+			dtExpandTabs			= 0x00000040,
+			[helpstring("Sets tab stops.")]
+			dtTabStop				= 0x00000080,
+			[helpstring("容纳不下文本自动剪裁")]
+			dtNoClip				= 0x00000100,
+			[helpstring("Includes the font external leading in line height.")]
+			dtExternAlleading		= 0x00000200,
+			[helpstring("计算容纳文本的矩形区域的宽度和高度")]
+			dtCalcRect				= 0x00000400,
+			[helpstring("关闭前缀字符的处理")]
+			dtNoPrefix				= 0x00000800,
+			[helpstring("使用系统字体计算文本区域")]
+			dtInternal				= 0x00001000,
+			[helpstring("复制多行编辑控件的文本显示特征")]
+			dtEditControl			= 0x00002000,
+			[helpstring("显示不全时路径用省略号代替，例如：C:\Windows\...\*.bmp")]
+			dtPathEllipsis  		= 0x00004000,
+			[helpstring("显示不全的用省略号代替，例如：C:\Windows\...")]
+			dtEndEllipsis			= 0x00008000,
+			[helpstring("修改指定的字符串以匹配显示的文本。dtPathEllipsis或dtEndEllipsis设置后才有效")]
+			dtModifyString			= 0x00010000,
+			[helpstring("文本从右往左显示")]
+			dtRtLReading			= 0x00020000,
+			[helpstring("用省略号代替区域不能容纳的文本")]
+			dtWordEllipsis			= 0x00040000,
+			[helpstring("防止DBCS(双宽字符串)的断行，必须和dtWordBreak一起用")]
+			dtNoFullWidthCharBreak	= 0x00080000,
+			[helpstring("忽略文本中的&字符，令下面的字母不加下划线")]
+			dtHidePrefix			= 0x00100000,
+			[helpstring("在&前缀字符后面的字符位置只绘制下划线，在字符串中不绘制任何其他字符")]
+			dtPrefixOnly			= 0x00200000,
+			dtPLotter				= 0x00000000,
+			dtRasDisplay			= 0x00000001,
+			dtRasPrinter			= 0x00000002,
+			dtRasCamera				= 0x00000003,
+			dtCharStream			= 0x00000004,
+			dtMetaFile				= 0x00000005,
+			dtDispFile				= 0x00000006,
+			dtDefault				= 0x00000024, //DT_LEFT or DT_VCENTER or DT_SINGLELINE
+			dtDefault1				= 0x00040024, //DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
+			dtDefault2				= 0x00040025  //DT_CENTER or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
+		} TextFormatConstants;
+
+		[v1_enum, helpstring("框架控件类型")]
+		typedef enum FrameControlTypeConstants
+		{
+			[helpstring("标题栏")]
+			fctCaption		= 0x1,
+			[helpstring("菜单栏")]
+			fctMenu			= 0x2,
+			[helpstring("滚动条")]
+			ftcScroll		= 0x3,
+			[helpstring("标准按钮")]
+			fctButton		= 0x4,
+			[helpstring("弹出式菜单")]
+			fctPopupMenu	= 0x5
+		} FrameControlTypeConstants;
+ 
+		[v1_enum, helpstring("框架控件样式")]
+		typedef enum FrameControlStateConstants
+		{
+			[helpstring("关闭按钮")]
+			fcsCaptionClose			= 0x0,
+			[helpstring("最小化按钮")]
+			fcsCaptionMin			= 0x1,
+			[helpstring("最大化按钮")]
+			fcsCaptionMax			= 0x2,
+			[helpstring("恢复按钮")]
+			fcsCaptionRestore		= 0x3,
+			[helpstring("帮助按钮")]
+			fcsCaptionHelp			= 0x4,
+			[helpstring("菜单箭头")]
+			fcsMenuArrow			= 0x0,
+			[helpstring("复选框")]
+			fcsMenuCheck			= 0x1,
+			[helpstring("Bullet")]
+			fcsMenuBullet			= 0x2,
+			[helpstring("菜单右向箭头")]
+			fcsMenuArrowRight		= 0x4,
+			[helpstring("滚动条向上箭头")]
+			fcsScrollUp				= 0x0,
+			[helpstring("滚动条向下箭头")]
+			fcsScrollDown			= 0x1,
+			[helpstring("滚动条向左箭头")]
+			fcsScrollLeft			= 0x2,
+			[helpstring("滚动条向右箭头")]
+			fcsScrollRight			= 0x3,
+			[helpstring("组合框")]
+			fcsScrollComboBox		= 0x5,
+			[helpstring("窗口右下角的大小手柄")]
+			fcsScrollSizeGrip		= 0x8,
+			[helpstring("窗口左下角的大小手柄")]
+			fcsScrollSizeGripRight	= 0x10,
+			[helpstring("复选框")]
+			fcsButtonCheck			= 0x0,
+			[helpstring("Image for radio button (nonsquare needs image)")]
+			fcsButtonRadioImage		= 0x1,
+			[helpstring("Mask for radio button (nonsquare needs mask)")]
+			fcsButtonRadioMask		= 0x2,
+			[helpstring("选项框")]
+			fcsButtonRadion			= 0x4,
+			[helpstring("三态按钮")]
+			fcsButton3State			= 0x8,
+			[helpstring("按钮")]
+			fcsButtonPush			= 0x10,
+			[helpstring("调整边框以排除按钮周围的边缘。")]
+			fcsAdjustRect			= 0x2000,
+			[helpstring("按钮不可用(灰色)状态")]
+			fcsInActive				= 0x100,
+			[helpstring("按钮被按下")]
+			fctPushed				= 0x200,
+			[helpstring("按钮被选择")]
+			fcsChecked				= 0x400,
+			[helpstring("透明")]
+			fcsTransparent			= 0x800,
+			[helpstring("按钮被激活")]
+			fcsHot					= 0x1000,
+			[helpstring("平面边框按钮")]
+			fcsFlat					= 0x4000,
+			[helpstring("按钮有单色边框")]
+			fcsMono					= 0x8000
+		} FrameControlStateConstants;
+   
+		[v1_enum, helpstring("边缘样式")]
+		typedef enum EdgeStyleConstants
+		{
+			[helpstring("Raised outer edge.")]
+			esRaiseDouter	= 0x0001,
+			[helpstring("Sunken outer edge.")]
+			esSunkenOuter	= 0x0002,
+			[helpstring("outer edge.")]
+			esOuter			= 0x0003,
+			[helpstring("Raised inner edge.")]
+			esRaisedInner	= 0x0004,
+			[helpstring("Raised edge.")]
+			esRaised		= 0x0005,
+			[helpstring("Sunken inner edge.")]
+			esSunkenInner	= 0x0008,
+			[helpstring("Sunken edge.")]
+			esSunken		= 0x000a,
+			[helpstring("inner edge.")]
+			esInner			= 0x000c
+		} EdgeStyleConstants;
+
+		[v1_enum, helpstring("边缘选项")]
+		typedef enum EdgeFlagConstants
+		{
+			[helpstring("Left side of border rectangle.")]
+			efLeft						= 0x0001,
+			[helpstring("Top of border rectangle.")]
+			efTop						= 0x0002, 
+			[helpstring("Right side of border rectangle.")]
+			efRight						= 0x0004, 
+			[helpstring("Bottom of border rectangle.")]
+			efBottom					= 0x0008, 
+			[helpstring("Diagonal border.")]
+			efDiagonal					= 0x0010, 
+			[helpstring("Interior of rectangle to be filled.")]
+			efMiddle					= 0x0800, 
+			[helpstring("Soft buttons instead of tiles.")]
+			efSoft						= 0x1000, 
+			[helpstring("If this flag is passed, shrink the rectangle pointed to by the qrc parameter to exclude the edges that were drawn.")]
+			efAdjust					= 0x2000, 
+			[helpstring("Flat border.")]
+			efFlat						= 0x4000, 
+			[helpstring("One-dimensional border.")]
+			efMono						= 0x8000, 
+			[helpstring("Top and left side of border rectangle.")]
+			efTopLeft					= 0x0003, //(BF_TOP | BF_LEFT)
+			[helpstring("Top and right side of border rectangle.")]
+			efTopRight					= 0x0006, //(BF_TOP | BF_RIGHT)
+			[helpstring("Bottom and left side of border rectangle.")]
+	 		efBottomLeft				= 0x0009, //(BF_BOTTOM | BF_LEFT)
+			[helpstring("Bottom and right side of border rectangle.")]
+	 		efBottomRight				= 0x0012, //(BF_BOTTOM | BF_RIGHT)
+			[helpstring("Entire border rectangle.")]
+			efRect						= 0x000f, //(BF_LEFT | BF_TOP | BF_RIGHT | BF_BOTTOM)
+			efDiagonalEndBottomLeft		= 0x0019, //(BF_DIAGONAL | BF_BOTTOM | BF_LEFT)
+			efDiagonalEndBottomRight	= 0x001c, //(BF_DIAGONAL | BF_BOTTOM | BF_RIGHT)
+			efDiagonalEndTopLeft		= 0x0013, //(BF_DIAGONAL | BF_TOP | BF_LEFT)
+			efDiagonalEndTopRight		= 0x0016  //(BF_DIAGONAL | BF_TOP | BF_RIGHT)
+		} EdgeFlagConstants;
+
+		[v1_enum, helpstring("箭头方向")]
+		typedef enum ArrowDirectionConstants
+		{
+			[helpstring("←	西方箭头 Left ")]
+			adWest		= 0,
+			[helpstring("↖	西北箭头")]
+			adWestNorth = 1,
+			[helpstring("↑	北方箭头 Top")]
+			adNorth		= 2,
+			[helpstring("↗	东北箭头")]
+			adEastNorth = 3,
+			[helpstring("→	东方箭头 Right")]
+			adEast		= 4,
+			[helpstring("↘	东南箭头")]
+			adEastSouth = 5,
+			[helpstring("↓	南方箭头 Bottom")]
+			adSouth		= 6,
+			[helpstring("↙	西南方向箭头")]
+			adWestSouth = 7
+		} ArrowDirectionConstants;
+		
+		[v1_enum, helpstring("图像布局")]
+		typedef enum ImageLayoutConstants
+		{
+			[helpstring("无布局")]
+			ilNone		= 0, 
+			[helpstring("平铺")]	
+			ilTile		= 1,
+			[helpstring("居中")]
+			ilCenter	= 2,
+			[helpstring("拉伸")]
+			ilStretch	= 3,
+			[helpstring("缩放")]
+			ilZoom		= 4
+		} ImageLayoutConstants;
+
+		[id(0), helpstring("关于")] HRESULT AboutMe();
+		
+		[id(1), helpstring("是否NT系统 1是, 0否")] 
+		HRESULT IsWinNT(
+		[out, retval] VARIANT_BOOL *retVal
+		);
+
+		[id(2), helpstring("将对象选入设备环境")]
+		HRESULT SelectObject(
+		[in] long hDC, 
+		[in] long hObject, 
+		[out, retval] long *retVal
+		);
+		
+		[id(3), helpstring("删除对象")]
+		HRESULT DeleteObject(
+		[in] long hObject, 
+		[out, retval] VARIANT_BOOL *retVal
+		);
+
+		[id(4), helpstring("创建画刷")]
+		HRESULT CreateBrush( 
+		[in] BrushTypeConstants enmBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants enmBrushStyle, 
+		[in, defaultvalue(hsSolid)] BrushHatchConstants enmBrushHatch, 
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrColor, 
+		[in, defaultvalue(0)] long hBitmap,
+		[out, retval] long *retVal
+		);
+		
+		[id(5), helpstring("创建字体")]
+		HRESULT CreateFont(
+		[in] long hDC, 
+		[in] FontTypeConstants eFontType, 
+		[in, defaultvalue("Arial")] BSTR strFontName,
+		[in, defaultvalue(8)] int nFontSize,
+		[in, defaultvalue(0)] int nFontRotationDegrees, 
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontBold, 
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontItalic,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontUnderline,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontStrikethru,
+		[in, defaultvalue(TRUE)] VARIANT_BOOL bFontHighQuality,
+		[out, retval] long *retVal
+		);
+ 
+		[id(6), helpstring("计算文本区域")]
+		HRESULT CalcTextArea(
+		[in] long hDC, 
+		[in] BSTR strText, 
+		[in, out, defaultvalue(0)] int* nWidth, 
+		[in, out, defaultvalue(0)] int* nHeight,
+		[in, defaultvalue(0)] long hFont
+		);
+
+		[id(7), helpstring("计算文本宽度")]
+		HRESULT TextWidth(
+		[in] long hDC, 
+		[in] BSTR strText,
+		[out, retval] long *retVal
+		);
+
+		[id(8), helpstring("计算文本高度")]
+		HRESULT TextHeight(
+		[in] long hDC,
+		[in] BSTR strText,
+		[out, retval] long *retVal
+		);
+
+		[id(9), helpstring("画文本")]
+		HRESULT DrawText(
+		[in] long hDC, 
+		[in] BSTR strText,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrTextColor, 
+		[in, defaultvalue(dtDefault)] TextFormatConstants eFormat, 
+		[in, defaultvalue(TRUE)] VARIANT_BOOL bEnabled,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bUseCustomFont,
+		[in, defaultvalue(ftIndirectFont)] FontTypeConstants eFontType, 
+		[in, defaultvalue("Arial")] BSTR strFontName, 
+		[in, defaultvalue(8)] int nFontSize, 
+		[in, defaultvalue(0)] int nFontRotationDegrees, 
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontBold,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontItalic,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontUnderline,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontStrikethru,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontHighQuality
+		);
+
+		[id(10), helpstring("画控件形状。例如，复选框、单选框、最大化、最小化、关闭按扭、菜单箭头等")]
+		HRESULT DrawControl(
+		[in] long hDC, 
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth, 
+		[in] int nHeight,
+		[in] FrameControlTypeConstants eType, 
+		[in] FrameControlStateConstants eState
+		);
+
+		[id(11), helpstring("画控件边缘特效。例如：凹下、突起等")]
+		HRESULT DrawControlEdge(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y,
+		[in] int nWidth, 
+		[in] int nHeight,
+		[in] EdgeStyleConstants eStyle, 
+		[in] EdgeFlagConstants eFlags
+		);
+
+		[id(12), helpstring("画线")]
+		HRESULT DrawLine(
+		[in] long hDC,
+		[in] int X1,
+		[in] int Y1,
+		[in] int X2,
+		[in] int Y2,
+		[in] OLE_COLOR clrLineColor, 
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(13), helpstring("画圆")]
+		HRESULT DrawCircle(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrFillColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor,
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(14), helpstring("画边框")]
+		HRESULT DrawBorder(
+		[in] long hDC, 
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR crBorderColor, 
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(1)] int nBorderWidth
+		);
+
+		[id(15), helpstring("画区域")]
+		HRESULT DrawArea(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR clrAreaColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch, 
+		[in, defaultvalue(0)] long hAreaBitmap
+		);
+
+		[id(16), helpstring("拷贝区域")]
+		HRESULT CopyArea(
+		[in] long hDestDC, 
+		[in] int X, 
+		[in] int Y, 
+		[in] int nWidth, 
+		[in] int nHeight,
+		[in] long hSrcDC, 
+		[in] int SrcX, 
+		[in] int SrcY, 
+		[in] int nSrcWidth, 
+		[in] int nSrcHeight
+		);
+
+		[id(17), helpstring("画区域及边框")]
+		HRESULT DrawBox(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight, 
+		[in] OLE_COLOR clrFillColor,
+		[in] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(0)] long hFillBitmap,
+		[in, defaultvalue(1)] int nBorderWidth
+		);
+
+		[id(18), helpstring("画透明区域及边框")]
+		HRESULT DrawAlphaBox(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight, 
+		[in] OLE_COLOR clrFillColor,
+		[in] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(0)] long hFillBitmap,
+		[in, defaultvalue(1)] int nBorderWidth, 
+		[in, defaultvalue(100)] byte nAlpha
+		);
+
+		[id(19), helpstring("画圆角边框")]
+		HRESULT DrawRoundBorder(
+		[in] long hDC, 
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(2)] int nRoundValue, 
+		[in, defaultvalue(0x000000)] OLE_COLOR crBorderColor, 
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(1)] int nBorderWidth
+		);
+	
+		[id(20), helpstring("画圆角形区域")]
+		HRESULT DrawRoundArea(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(2)] int nRoundValue, 
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrAreaColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch, 
+		[in, defaultvalue(0)] long hAreaBitmap
+		);
+
+		[id(21), helpstring("画圆角区域及边框")]
+		HRESULT DrawRoundBox(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight, 
+		[in, defaultvalue(2)] int nRoundValue, 
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrFillColor,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(0)] long hFillBitmap,
+		[in, defaultvalue(1)] int nBorderWidth
+		);
+
+		[id(22), helpstring("画透明圆角区域及边框")]
+		HRESULT DrawAlphaRoundBox(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight, 
+		[in, defaultvalue(2)] int nRoundValue, 
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrFillColor,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(btSolidBrush)] BrushTypeConstants eBrushType,
+		[in, defaultvalue(bsSolid)] BrushStyleConstants eBrushStyle,
+		[in, defaultvalue(hsSolid)] BrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ptSolidPen)] PenTypeConstants ePenType,
+		[in, defaultvalue(psSolid)] PenStyleConstants ePenStyle, 
+		[in, defaultvalue(0)] long hFillBitmap,
+		[in, defaultvalue(1)] int nBorderWidth, 
+		[in, defaultvalue(100)] byte nAlpha
+		);
+
+		[id(23), helpstring("画多边形区域")]
+		HRESULT DrawPolyArea(
+		[in] long hDC, 
+		[in] SAFEARRAY(TPoint) *tPt, 
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrFillColor,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(1)] int nBorderWidth
+		);
+
+		[id(24), helpstring("画焦点")]
+		HRESULT DrawFocus(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y, 
+		[in] int nWidth, 
+		[in] int nHeight
+		);
+
+		[id(25), helpstring("画复选钩")]
+		HRESULT DrawCheck(
+		[in] long hDC,
+		[in] int X , 
+		[in] int Y, 
+		[in] int nWidth, 
+		[in] int nHeight, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor,
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(26), helpstring("画箭头")]
+		HRESULT DrawArrow(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y, 
+		[in] int nWidth, 
+		[in] int nHeight,
+		[in, defaultvalue(adEast)] ArrowDirectionConstants eDirection,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor
+		);
+
+		[id(27), helpstring("画关闭")]
+		HRESULT DrawClose(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y,
+		[in, defaultvalue(8)] int nSize,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor,
+		[in, defaultvalue(2)] int nLineWidth
+		);
+
+		[id(28), helpstring("画还原")]
+		HRESULT DrawRestore(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y,
+		[in, defaultvalue(10)] int nSize,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor,
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(29), helpstring("画最大化")]
+		HRESULT DrawMax(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y,
+		[in, defaultvalue(8)] int nSize,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor,
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(30), helpstring("画最小化")]
+		HRESULT DrawMin(
+		[in] long hDC, 
+		[in] int X, 
+		[in] int Y,
+		[in, defaultvalue(8)] int nSize,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor,
+		[in, defaultvalue(1)] int nLineWidth
+		);
+
+		[id(31), helpstring("画数字")]
+		HRESULT DrawDigit(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nDigit,
+		[in, defaultvalue(3)] int nWidth,
+		[in, defaultvalue(0x0000FF)] OLE_COLOR clrColor
+		);
+
+		[id(32), helpstring("画字符")]
+		HRESULT DrawCharacter(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] BSTR strLetter,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrColor
+		);
+
+		[id(33), helpstring("画渐变")]
+		HRESULT DrawGradient(
+		[in] long hDC, 
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR clrStartColor, 
+		[in] OLE_COLOR clrEndColor, 
+		[in] GradientDirectionConstants eDirection
+		);
+
+		[id(34), helpstring("画透明渐变")]
+		HRESULT DrawAlphaGradient(
+		[in] long hDC, 
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR clrStartColor, 
+		[in] OLE_COLOR clrEndColor, 
+		[in] GradientDirectionConstants eDirection,
+		[in, defaultvalue(100)] byte nAlpha
+		);
+ 
+		[id(35), helpstring("位图透明拷贝(需要遮罩图片)")]
+		HRESULT TransparentPaintImage(
+		[in] long hDestDC,
+		[in] int xDest, 
+		[in] int yDest, 
+		[in] long hImage, 
+		[in] long hMask
+		);
+
+		[id(36), helpstring("位图透明拷贝(采用TransparentBlt API)")]
+		HRESULT TransparentPaintArea( 
+		[in] long hDestDC, 
+		[in] int xDest, 
+		[in] int yDest, 
+		[in] int nDestWidth, 
+		[in] int nDestHeight, 
+		[in] long hSrcDC, 
+		[in] int xSrc, 
+		[in] int ySrc, 
+		[in] int nSrcWidth, 
+		[in] int nSrcHeight, 
+		[in] OLE_COLOR clrTransparentColor
+		);
+
+		[id(37), helpstring("位图透明拷贝(采用AlphaBlend API)")]
+		HRESULT TransparentPaintAlpha(
+		[in] long hDestDC, 
+		[in] int xDest,
+		[in] int yDest, 
+		[in] int nDestWidth, 
+		[in] int nDestHeight, 
+		[in] long hSrcDC, 
+		[in] int xSrc,
+		[in] int ySrc, 
+		[in] int nSrcWidth, 
+		[in] int nSrcHeight,
+		[in, defaultvalue(100)] byte nAlpha
+		);
+
+		[id(38), helpstring("画图标 hIcon图标句柄")]
+		HRESULT DrawIcon(
+		[in] long hDC,
+		[in] long hIcon, 
+		[in] int X, 
+		[in] int Y, 
+		[in] VARIANT_BOOL bEnabled,
+		[in] OLE_COLOR clrDisabledColor
+		);
+
+		[id(39), helpstring("画图片 hIcon位图句柄")]
+		HRESULT DrawImage(
+		[in] long hDC,
+		[in] long hImage,
+		[in] int X, 
+		[in] int Y, 
+		[in] int nWidth, 
+		[in] int nHeight,
+		[in] ImageLayoutConstants eLayout
+		);
+
+		[id(40), helpstring("画透明位图或图标 hPic位图或图标句柄 clrMaskColor要屏蔽的颜色 clrDisabledColor不可用时的颜色")]
+		HRESULT DrawPic(
+		[in] long hDC, 
+		[in] long hPic,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0x0000FF)] OLE_COLOR clrMaskColor, 
+		[in, defaultvalue(0x808080)] OLE_COLOR clrDisabledColor,
+		[in, defaultvalue(TRUE)] VARIANT_BOOL bEnabled
+		);
+
+		[id(41), helpstring("颜色混合")]
+		HRESULT BlendColor(
+		[in] OLE_COLOR clrForeColor,
+		[in] OLE_COLOR clrBackColor,
+		[in] byte nAlpha,
+		[out, retval] long *retVal
+		);
+
+
+		[id(42), helpstring("颜色透明")]
+		HRESULT AlphaColor(
+		[in] OLE_COLOR clrColor, 
+		[in] byte nAlpha,
+		[out, retval] long *retVal
+		);
+
+		[id(43), helpstring("颜色反转")]
+		HRESULT ReverseColor(
+		[in] OLE_COLOR clrColor,
+		[out, retval] long *retVal
+		);
+
+		[id(44), helpstring("转换颜色")]
+		HRESULT TranslateColor(
+		[in] OLE_COLOR clrColor, 
+		[in, defaultvalue(0)] long hPal,
+		[out, retval] long *retVal
+		);
+	};
+
+	/*
+	GDI+
+	*/
+
+	[
+		object,
+		uuid(B78B3955-F0C3-47d3-A2E3-3881A2DF7AF1),
+		helpstring("ICustom Interface"),
+		pointer_default(unique)
+	]
+	interface IWinGdip : IDispatch
+	{
+		[v1_enum, helpstring("平滑模式")]
+		typedef enum GdipSmoothingModeConstants
+		{
+			psmInvalid			= -1,
+			psmDefault			= 0,
+			psmHighSpeed		= 1,
+			psmHighQuality		= 2,
+			psmNone				= 3,
+			psmAntiAlias		= 4
+		} GdipSmoothingModeConstants;
+
+		[v1_enum, helpstring("画刷类型")]
+		typedef enum GdipBrushTypeConstants
+		{
+			pbtSolidColor				= 0,
+			pbtHatchFill				= 1,
+			//pbtTextureFill			= 2,
+			//pbtPathGradient			= 3,
+			//pbtLinearGradient			= 4,
+			
+			pbtGradientHorizontal		= 10,
+			pbtGradientVertical			= 11,
+			pbtGradientForwardDiagonal	= 12,
+			pbtGradientBackwardDiagonal	= 13,
+			pbtGradientAngle			= 14
+		} GdipBrushTypeConstants;
+		
+		[v1_enum, helpstring("画刷图案样式")]
+		typedef enum GdipBrushHatchConstants
+		{
+			phsHorizontal			= 0,
+			phsVertical				= 1,
+			phsForwardDiagonal		= 2,
+			phsBackwardDiagonal		= 3,
+			phsCross				= 4,
+			phsDiagonalCross		= 5,
+			phs05Percent			= 6,
+			phs10Percent			= 7,
+			phs20Percent			= 8,
+			phs25Percent			= 9,
+			phs30Percent			= 10,
+			phs40Percent			= 11,
+			phs50Percent			= 12,
+			phs60Percent			= 13,
+			phs70Percent			= 14,
+			phs75Percent			= 15,
+			phs80Percent			= 16,
+			phs90Percent			= 17,
+			phsLightDownwardDiagonal= 18,
+			phsLightUpwardDiagonal	= 19,
+			phsDarkDownwardDiagonal	= 20,
+			phsDarkUpwardDiagonal	= 21,
+			phsWideDownwardDiagonal	= 22,
+			phsWideUpwardDiagonal	= 23,
+			phsLightVertical		= 24,
+			phsLightHorizontal		= 25,
+			phsNarrowVertical		= 26,
+			phsNarrowHorizontal		= 27,
+			phsDarkVertical			= 28,
+			phsDarkHorizontal		= 29,
+			phsDashedDownwardDiagonal= 30,
+			phsDashedUpwardDiagonal	= 31,
+			phsDashedHorizontal		= 32,
+			phsDashedVertical		= 33,
+			phsSmallConfetti		= 34,
+			phsLargeConfetti		= 35,
+			phsZigZag				= 36,
+			phsWave					= 37,
+			phsDiagonalBrick		= 38,
+			phsHorizontalBrick		= 39,
+			phsWeave				= 40,
+			phsPlaid				= 41,
+			phsDivot				= 42,
+			phsDottedGrid			= 43,
+			phsDottedDiamond		= 44,
+			phsShingle				= 45,
+			phsTrellis				= 46,
+			phsSphere				= 47,
+			phsSmallGrid			= 48,
+			phsSmallCheckerBoard	= 49,
+			phsLargeCheckerBoard	= 50,
+			phsOutlinedDiamond		= 51,
+			phsSolidDiamond			= 52
+		} GdipBrushHatchConstants;
+
+		[v1_enum, helpstring("画笔样式")]
+		typedef enum GdipPenStyleConstants
+		{
+			ppsSolid		= 0,
+			ppsDash			= 1,
+			ppsDot			= 2,
+			ppsDashDot		= 3,
+			ppsDashDotDot	= 4,
+			ppsCustom		= 5
+		} GdipPenStyleConstants;
+
+		[v1_enum, helpstring("线冒类型")]
+		typedef enum GdipLineCapConstants
+		{
+			plcFlat             = 0,
+			plcSquare           = 1,
+			plcRound            = 2,
+			plcTriangle         = 3,
+			plcNoAnchor         = 0x10, // corresponds to flat cap
+			plcSquareAnchor     = 0x11, // corresponds to square cap
+			plcRoundAnchor      = 0x12, // corresponds to round cap
+			plcDiamondAnchor    = 0x13, // corresponds to triangle cap
+			plcArrowAnchor      = 0x14, // no correspondence
+			plcCustom           = 0xff, // custom cap
+			plcAnchorMask       = 0xf0  // mask to check for anchor or not.
+		} GdipLineCapConstants;
+
+		[v1_enum, helpstring("渐变方向")]
+		typedef enum GdipGradientDirectionConstants
+		{
+			pdHorizontal		= 0,
+			pdVertical			= 1,
+			pdForwardDiagonal	= 2,
+			pdBackwardDiagonal	= 3
+		} GdipGradientDirectionConstants;
+		
+		[v1_enum, helpstring("文本格式")]
+		typedef enum GdipTextFormatConstants
+		{
+			ptfDefault						= 0x00000000,
+			ptfDirectionRightToLeft			= 0x00000001,
+			ptfDirectionVertical			= 0x00000002,
+			ptfNoFitBlackBox				= 0x00000004,
+			ptfNumberContextArabic			= 0x00000008,
+			ptfDisableKashidaJustification	= 0x00000010,
+			ptfDisplayFormatControl			= 0x00000020,
+			ptfDisableKerning				= 0x00000040,
+			ptfDisableLigatures				= 0x00000080,
+			ptfLayoutLegacyBidi				= 0x00000100,
+			ptfFlagsNoChanges				= 0x00000200,
+			ptfNoFontFallback				= 0x00000400,
+			ptfMeasureTrailingSpaces		= 0x00000800,
+			ptfFlagsNoWrap					= 0x00001000,
+			ptfLineLimit					= 0x00002000,
+			ptfNoClip						= 0x00004000
+		} GdipTextFormatConstants;
+
+		[v1_enum, helpstring("文本水平对齐方式")]
+		typedef enum GdipTextHAlignmentConstants
+		{
+			pthaLeft	= 0,
+			pthaCenter	= 1,
+			pthaRight	= 2
+		} GdipTextHAlignmentConstants;
+
+		[v1_enum, helpstring("文本垂直对齐方式")]
+		typedef enum GdipTextVAlignmentConstants
+		{
+			ptvaTop		= 0,
+			ptvaCenter	= 1,
+			ptvaBottom	= 2
+		} GdipTextVAlignmentConstants;
+
+		[id(0), helpstring("关于")] HRESULT AboutMe();
+
+		[propget, id(1), helpstring("GDI+是否已经启动")] 
+		HRESULT HasStarted(
+		[out, retval] VARIANT_BOOL *retVal
+		);
+
+		[id(2), helpstring("启动GDI+")] 
+		HRESULT Startup(
+		[out, retval] VARIANT_BOOL *retVal
+		);
+
+		[id(3), helpstring("关闭GDI+")] 
+		HRESULT Shutdown();
+
+		[id(4), helpstring("设置平滑模式")] 
+		HRESULT SetSmoothingMode(
+		[in, defaultvalue(psmAntiAlias)] GdipSmoothingModeConstants eMode
+		);
+
+		[id(5), helpstring("画圆或椭圆")]
+		HRESULT DrawCircle(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0xFFFFFF)] OLE_COLOR clrFillColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrHatchColor,
+		[in, defaultvalue(pbtSolidColor)] GdipBrushTypeConstants eBrushType,
+		[in, defaultvalue(phsHorizontal)] GdipBrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(0)] float fAngle,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(6), helpstring("画线")]
+		HRESULT DrawLine(
+		[in] long hDC,
+		[in] int X1,
+		[in] int Y1,
+		[in] int X2,
+		[in] int Y2,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrLineColor, 
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(plcFlat)] GdipLineCapConstants eStartCap,
+		[in, defaultvalue(plcFlat)] GdipLineCapConstants eEndCap,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(7), helpstring("画弧线")]
+		HRESULT DrawArc(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] float fStartAngle,
+		[in] float fSweepAngle,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrLineColor, 
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(8), helpstring("画贝塞尔曲线")]
+		HRESULT DrawBezier(
+		[in] long hDC,
+		[in] int X1,
+		[in] int Y1,
+		[in] int X2,
+		[in] int Y2,
+		[in] int X3,
+		[in] int Y3,
+		[in] int X4,
+		[in] int Y4,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrLineColor, 
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(9), helpstring("画饼图")]
+		HRESULT DrawPie(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] float fStartAngle,
+		[in] float fSweepAngle,
+		[in, defaultvalue(0xffffff)] OLE_COLOR clrFillColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrHatchColor,
+		[in, defaultvalue(pbtSolidColor)] GdipBrushTypeConstants eBrushType,
+		[in, defaultvalue(phsHorizontal)] GdipBrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(0)] float fAngle,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+	
+		[id(10), helpstring("画区域, eBrushType仅支持pbtSolidColor和pbtHatchFill,若要画渐变请用DrawGradient函数")]
+		HRESULT DrawArea(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0xffffff)] OLE_COLOR clrFillColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrHatchColor,
+		[in, defaultvalue(pbtSolidColor)] GdipBrushTypeConstants eBrushType,
+		[in, defaultvalue(phsHorizontal)] GdipBrushHatchConstants eBrushHatch,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(11), helpstring("画边框")]
+		HRESULT DrawBorder(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+
+		[id(12), helpstring("画区域及边框")]
+		HRESULT DrawBox(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in, defaultvalue(0xffffff)] OLE_COLOR clrFillColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrBorderColor, 
+		[in, defaultvalue(0x000000)] OLE_COLOR clrHatchColor,
+		[in, defaultvalue(pbtSolidColor)] GdipBrushTypeConstants eBrushType,
+		[in, defaultvalue(phsHorizontal)] GdipBrushHatchConstants eBrushHatch,
+		[in, defaultvalue(ppsSolid)] GdipPenStyleConstants ePenStyle,
+		[in, defaultvalue(1)] int nLineWidth,
+		[in, defaultvalue(0)] float fAngle,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+		
+		[id(13), helpstring("画渐变")]
+		HRESULT DrawGradient(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR clrStartColor, 
+		[in] OLE_COLOR clrEndColor, 
+		[in, defaultvalue(pdHorizontal)] GdipGradientDirectionConstants eDirection,
+		[in, defaultvalue(0)] float fAngle,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+ 
+		[id(14), helpstring("画文本")]
+		HRESULT DrawText(
+		[in] long hDC,
+		[in] BSTR strText,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] OLE_COLOR clrTextColor, 
+		[in, defaultvalue(ptfDefault)] GdipTextFormatConstants eFormat,
+		[in, defaultvalue(pthaLeft)] GdipTextHAlignmentConstants eHAlignment,
+		[in, defaultvalue(ptvaCenter)] GdipTextVAlignmentConstants eVAlignment,
+		[in, defaultvalue("Arial")] BSTR strFontName,
+		[in, defaultvalue(8)] int nFontSize,
+		[in, defaultvalue(0)] int nFontRotationDegrees,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontBold,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontItalic,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontUnderline,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontStrikethru,
+		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontHighQuality,
+		[in, defaultvalue(255)] unsigned char nAlpha
+		);
+ 
+	};
+
+	[
+		uuid(6063AA6A-7531-4193-A164-DFCF60D9A021),
+		version(1.0),
+		helpstring("eLong GDI Library")
+	]
+	library TGdi
+	{
+		importlib("stdole32.tlb");
+		importlib("stdole2.tlb");
+
+		[
+			uuid(F968F3E8-4AB0-451D-B176-6999E705A3FD),
+			helpstring("WinGdi Class")
+		]
+		coclass WinGdi
+		{
+			[default] interface IWinGdi;
+		};
+
+		[
+			uuid(FBE5E37F-C78C-4383-8788-E6D4DEB1E6E2),
+			helpstring("WinGdiplus Class")
+		]
+		coclass WinGdip
+		{
+			[default] interface IWinGdip;
+		};
+	};
