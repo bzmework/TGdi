@@ -1,12 +1,12 @@
 VERSION 5.00
 Begin VB.Form frmMain 
    Caption         =   "图像测试"
-   ClientHeight    =   8760
+   ClientHeight    =   8565
    ClientLeft      =   60
    ClientTop       =   345
    ClientWidth     =   13005
    LinkTopic       =   "Form1"
-   ScaleHeight     =   584
+   ScaleHeight     =   571
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   867
    StartUpPosition =   1  '所有者中心
@@ -44,7 +44,7 @@ Begin VB.Form frmMain
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   153
       TabIndex        =   4
-      Top             =   7590
+      Top             =   6870
       Width           =   2295
    End
    Begin VB.PictureBox picImage 
@@ -57,7 +57,7 @@ Begin VB.Form frmMain
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   153
       TabIndex        =   3
-      Top             =   5850
+      Top             =   5130
       Width           =   2295
    End
    Begin VB.PictureBox picText 
@@ -78,7 +78,7 @@ Begin VB.Form frmMain
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   153
       TabIndex        =   2
-      Top             =   4080
+      Top             =   3360
       Width           =   2295
    End
    Begin VB.CommandButton cmdDraw 
@@ -115,16 +115,18 @@ Begin VB.Form frmMain
    End
    Begin VB.Image imgIcon 
       Height          =   480
-      Left            =   9720
+      Left            =   12120
       Picture         =   "frmMain.frx":109E
-      Top             =   1620
+      Top             =   1740
+      Visible         =   0   'False
       Width           =   480
    End
    Begin VB.Image imgBmp 
       Height          =   480
-      Left            =   9180
+      Left            =   11640
       Picture         =   "frmMain.frx":17A50
-      Top             =   1620
+      Top             =   1800
+      Visible         =   0   'False
       Width           =   480
    End
    Begin VB.Label lblText 
@@ -141,7 +143,7 @@ Begin VB.Form frmMain
       Height          =   1635
       Left            =   9180
       TabIndex        =   1
-      Top             =   2370
+      Top             =   1650
       Width           =   2295
    End
 End
