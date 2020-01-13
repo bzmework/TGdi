@@ -17,7 +17,7 @@ static const char *AUTHOR = "denglf";
 #endif // _MSC_VER > 1000
 
 #define STRICT
-#if _MSC_VER <= 1200 // MFC 6.0 or earlier
+#if _MSC_VER <= 1200 // vc6.0 or earlier
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0400
 #endif

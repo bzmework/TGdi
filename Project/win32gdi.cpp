@@ -19,6 +19,21 @@ BOOL Win32GDI::IsWinNT()
 }
 
 //
+// 函数：IsWinXpOrLater
+// 功能：判断操作系统是否为XP及以后的操作系统
+// 参数：无
+// 返回：是返回真
+//
+BOOL Win32GDI::IsWinXpOrLater()
+{
+	OSVERSIONINFO lpOSI;
+
+	lpOSI.dwOSVersionInfoSize = sizeof(lpOSI);
+	GetVersionEx(&lpOSI);
+	return (lpOSI.dwPlatformId >= 2 && lpOSI.dwMajorVersion >= 5 && lpOSI.dwMinorVersion > 0);
+}
+
+//
 // 函数：SelectAObject
 // 功能：将对象选入设备环境
 // 参数：hDC，		设备环境
@@ -1932,12 +1947,12 @@ VOID Win32GDI::TransparentPaintArea(
 //
 // 函数：TransparentPaintAlpha
 // 功能：位图拷贝(带Alpha通道值)
-// 参数：hDestDC，		目标设备环境
+// 参数： hDestDC，		目标设备环境
 //       xDest，		目标输出区域X轴坐标
 //       yDest，		目标输出区域Y轴坐标
 //       nDestWidth，	目标输出区域宽度
 //       nDestHeight，	目标输出区域高度
-//       hSrcDC，		源设备环境
+//       hSrcDC，		源设备环境。如果hSrcDC<=0, 则采用桌面设备环境
 //       xSrc，			源输出区域X轴坐标
 //       ySrc，			源输出区域Y轴坐标
 //       nSrcWidth，	源输出区域宽度
@@ -1965,8 +1980,60 @@ VOID Win32GDI::TransparentPaintAlpha(
     tBFN.AlphaFormat = 0;//AC_SRC_ALPHA;
     tBFN.SourceConstantAlpha = nAlpha;
 
-    AlphaBlend(hDestDC, xDest, yDest, nDestWidth, nDestHeight, 
-    hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, tBFN);
+	if (hSrcDC <= 0)
+	{
+		HDC hScreenDC = GetDC(0);
+		HDC hMemDC = CreateCompatibleDC(hScreenDC); // 基于屏幕创建一个内存DC(工作环境)
+		HBITMAP hBitmap = CreateCompatibleBitmap(hScreenDC, nDestWidth, nDestHeight); // 基于屏幕创建一个位图(画布)
+		HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hBitmap); // 将位图纳入内存DC(将画布带进工作环境挂好，下面就可以绘画了)
+
+		// 将桌面图像拷贝到内存DC
+		BitBlt(hMemDC, 0, 0, nDestWidth, nDestHeight, hScreenDC, xDest, yDest, SRCCOPY);
+		
+		// 进行透明混合
+		AlphaBlend(hMemDC, 0, 0, nDestWidth, nDestHeight,
+		hDestDC, 0, 0, nDestWidth, nDestHeight, tBFN);
+		
+		// 将透明处理后的结果重新输出到目标DC
+		BitBlt(hDestDC, 0, 0, nDestWidth, nDestHeight, hMemDC, 0, 0, SRCCOPY);
+
+		// 清理资源
+		SelectObject(hMemDC, hOldBitmap);
+		DeleteObject(hBitmap);
+		DeleteDC(hMemDC);
+		ReleaseDC(0, hScreenDC);
+	}
+	else
+	{
+		AlphaBlend(hDestDC, xDest, yDest, nDestWidth, nDestHeight,
+		hSrcDC, xSrc, ySrc, nSrcWidth, nSrcHeight, tBFN);
+	}
+}
+
+//
+// 函数：DrawResIcon
+// 功能：画资源图标
+// 参数：hDC，					设备环境
+//       X，						输出区域X轴坐标
+//       Y，						输出区域Y轴坐标
+//       nWidth，				输出区域宽度
+//       nHeight，				输出区域高度
+//       eIconName，				资源图标名称
+// 返回：无
+//
+VOID Win32GDI::DrawResIcon(
+	HDC hDC,
+	INT X,
+	INT Y,
+	INT nWidth,
+	INT nHeight,
+	IconNameConstants eIconName)
+{
+	HICON hIcon;
+
+	hIcon = LoadIcon(0, (LPCTSTR)eIconName);
+	DrawIconEx(hDC, X, Y, hIcon, nWidth, nHeight, 0, 0, DI_NORMAL);
+	DestroyIcon(hIcon);
 }
 
 //

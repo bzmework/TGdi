@@ -9,6 +9,6 @@
 #include <statreg.cpp>
 #endif
 
-#if _MSC_VER <= 1200 // MFC 6.0 or earlier
+#if _MSC_VER <= 1200 // vc6.0 or earlier
 #include <atlimpl.cpp>
 #endif

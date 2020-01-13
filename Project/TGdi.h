@@ -216,6 +216,17 @@ enum TextFormatConstants
         dtDefault2	= 0x40025
     } 	TextFormatConstants;
 
+typedef 
+enum IconNameConstants
+    {
+        idApplication	= 0x7f00,
+        idError	= 0x7f01,
+        idQuestion	= 0x7f02,
+        idWarning	= 0x7f03,
+        idInformation	= 0x7f04,
+        idWinlog	= 0x7f05
+    } 	IconNameConstants;
+
 typedef /* [helpstring][v1_enum] */ 
 enum FrameControlTypeConstants
     {
@@ -333,6 +344,9 @@ EXTERN_C const IID IID_IWinGdi;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AboutMe( void) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IsWinNT( 
+            /* [retval][out] */ VARIANT_BOOL *retVal) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IsWinXpOrLater( 
             /* [retval][out] */ VARIANT_BOOL *retVal) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SelectObject( 
@@ -708,6 +722,14 @@ EXTERN_C const IID IID_IWinGdi;
             /* [in] */ int nSrcHeight,
             /* [defaultvalue][in] */ byte nAlpha = 100) = 0;
         
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DrawResIcon( 
+            /* [in] */ long hDC,
+            /* [in] */ int X,
+            /* [in] */ int Y,
+            /* [in] */ int nWidth,
+            /* [in] */ int nHeight,
+            /* [in] */ IconNameConstants eIconName) = 0;
+        
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DrawIcon( 
             /* [in] */ long hDC,
             /* [in] */ long hIcon,
@@ -818,6 +840,10 @@ EXTERN_C const IID IID_IWinGdi;
             IWinGdi * This);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *IsWinNT )( 
+            IWinGdi * This,
+            /* [retval][out] */ VARIANT_BOOL *retVal);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *IsWinXpOrLater )( 
             IWinGdi * This,
             /* [retval][out] */ VARIANT_BOOL *retVal);
         
@@ -1230,6 +1256,15 @@ EXTERN_C const IID IID_IWinGdi;
             /* [in] */ int nSrcHeight,
             /* [defaultvalue][in] */ byte nAlpha);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DrawResIcon )( 
+            IWinGdi * This,
+            /* [in] */ long hDC,
+            /* [in] */ int X,
+            /* [in] */ int Y,
+            /* [in] */ int nWidth,
+            /* [in] */ int nHeight,
+            /* [in] */ IconNameConstants eIconName);
+        
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DrawIcon )( 
             IWinGdi * This,
             /* [in] */ long hDC,
@@ -1326,6 +1361,9 @@ EXTERN_C const IID IID_IWinGdi;
 
 #define IWinGdi_IsWinNT(This,retVal)	\
     ( (This)->lpVtbl -> IsWinNT(This,retVal) ) 
+
+#define IWinGdi_IsWinXpOrLater(This,retVal)	\
+    ( (This)->lpVtbl -> IsWinXpOrLater(This,retVal) ) 
 
 #define IWinGdi_SelectObject(This,hDC,hObject,retVal)	\
     ( (This)->lpVtbl -> SelectObject(This,hDC,hObject,retVal) ) 
@@ -1434,6 +1472,9 @@ EXTERN_C const IID IID_IWinGdi;
 
 #define IWinGdi_TransparentPaintAlpha(This,hDestDC,xDest,yDest,nDestWidth,nDestHeight,hSrcDC,xSrc,ySrc,nSrcWidth,nSrcHeight,nAlpha)	\
     ( (This)->lpVtbl -> TransparentPaintAlpha(This,hDestDC,xDest,yDest,nDestWidth,nDestHeight,hSrcDC,xSrc,ySrc,nSrcWidth,nSrcHeight,nAlpha) ) 
+
+#define IWinGdi_DrawResIcon(This,hDC,X,Y,nWidth,nHeight,eIconName)	\
+    ( (This)->lpVtbl -> DrawResIcon(This,hDC,X,Y,nWidth,nHeight,eIconName) ) 
 
 #define IWinGdi_DrawIcon(This,hDC,hIcon,X,Y,bEnabled,clrDisabledColor)	\
     ( (This)->lpVtbl -> DrawIcon(This,hDC,hIcon,X,Y,bEnabled,clrDisabledColor) ) 

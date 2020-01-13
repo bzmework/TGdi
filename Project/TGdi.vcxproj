@@ -195,6 +195,7 @@ echo regsvr32 exec. time &gt; "$(OutDir)regsvr32.trg" </Command>
       <PrecompiledHeader />
       <ObjectFileName>.\ReleaseMinDependency\</ObjectFileName>
       <ProgramDataBaseFileName>.\ReleaseMinDependency\</ProgramDataBaseFileName>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\ReleaseMinDependency\TGdi.tlb</TypeLibraryName>

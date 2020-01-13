@@ -13,12 +13,20 @@ STDMETHODIMP CWinGdi::AboutMe()
 	return S_OK;
 }
 
+//是否XP及以后的操作系统
+STDMETHODIMP CWinGdi::IsWinXpOrLater(VARIANT_BOOL *retVal)
+{
+	*retVal = (BOOL)Win32GDI::IsWinXpOrLater();
+	return S_OK;
+}
+
 //是否NT系统
-STDMETHODIMP CWinGdi::IsWinNT(VARIANT_BOOL *retVal)
+STDMETHODIMP CWinGdi::IsWinNT(VARIANT_BOOL* retVal)
 {
 	*retVal = (BOOL)Win32GDI::IsWinNT();
 	return S_OK;
 }
+
 
 //将对象选入设备环境"
 STDMETHODIMP CWinGdi::SelectObject(
@@ -1011,6 +1019,27 @@ STDMETHODIMP CWinGdi::TransparentPaintAlpha(
 		(INT) nSrcWidth, 
 		(INT) nSrcHeight,
 		(BYTE) nAlpha
+		);
+
+	return S_OK;
+}
+
+//画资源图标
+STDMETHODIMP CWinGdi::DrawResIcon(
+	long hDC,
+	int X,
+	int Y,
+	int nWidth,
+	int nHeight,
+	IconNameConstants eIconName)
+{
+	Win32GDI::DrawResIcon(
+		(HDC)hDC,
+		(INT)X,
+		(INT)Y,
+		(INT)nWidth,
+		(INT)nHeight,
+		(Win32GDI::IconNameConstants) eIconName
 		);
 
 	return S_OK;

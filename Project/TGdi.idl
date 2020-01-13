@@ -204,6 +204,22 @@ import "ocidl.idl";
 			dtDefault2				= 0x00040025  //DT_CENTER or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
 		} TextFormatConstants;
 
+		typedef enum IconNameConstants
+		{
+			[helpstring("应用程序图标")]
+			idApplication = 0x7f00, 
+			[helpstring("错误图标")]
+			idError = 0x7f01, 
+			[helpstring("疑问图标")]
+			idQuestion = 0x7f02, 
+			[helpstring("警告图标")]
+			idWarning = 0x7f03,
+			[helpstring("信息图标")]
+			idInformation = 0x7f04,
+			[helpstring("Windows标志图标")]
+			idWinlog = 0x7f05 
+		} IconNameConstants;
+
 		[v1_enum, helpstring("框架控件类型")]
 		typedef enum FrameControlTypeConstants
 		{
@@ -387,20 +403,25 @@ import "ocidl.idl";
 		[out, retval] VARIANT_BOOL *retVal
 		);
 
-		[id(2), helpstring("将对象选入设备环境")]
+		[id(2), helpstring("是否XP及以后的操作系统 1是, 0否")]
+		HRESULT IsWinXpOrLater(
+			[out, retval] VARIANT_BOOL* retVal
+		);
+
+		[id(3), helpstring("将对象选入设备环境")]
 		HRESULT SelectObject(
 		[in] long hDC, 
 		[in] long hObject, 
 		[out, retval] long *retVal
 		);
 		
-		[id(3), helpstring("删除对象")]
+		[id(4), helpstring("删除对象")]
 		HRESULT DeleteObject(
 		[in] long hObject, 
 		[out, retval] VARIANT_BOOL *retVal
 		);
 
-		[id(4), helpstring("创建画刷")]
+		[id(5), helpstring("创建画刷")]
 		HRESULT CreateBrush( 
 		[in] BrushTypeConstants enmBrushType,
 		[in, defaultvalue(bsSolid)] BrushStyleConstants enmBrushStyle, 
@@ -410,7 +431,7 @@ import "ocidl.idl";
 		[out, retval] long *retVal
 		);
 		
-		[id(5), helpstring("创建字体")]
+		[id(6), helpstring("创建字体")]
 		HRESULT CreateFont(
 		[in] long hDC, 
 		[in] FontTypeConstants eFontType, 
@@ -425,7 +446,7 @@ import "ocidl.idl";
 		[out, retval] long *retVal
 		);
  
-		[id(6), helpstring("计算文本区域")]
+		[id(7), helpstring("计算文本区域")]
 		HRESULT CalcTextArea(
 		[in] long hDC, 
 		[in] BSTR strText, 
@@ -434,21 +455,21 @@ import "ocidl.idl";
 		[in, defaultvalue(0)] long hFont
 		);
 
-		[id(7), helpstring("计算文本宽度")]
+		[id(8), helpstring("计算文本宽度")]
 		HRESULT TextWidth(
 		[in] long hDC, 
 		[in] BSTR strText,
 		[out, retval] long *retVal
 		);
 
-		[id(8), helpstring("计算文本高度")]
+		[id(9), helpstring("计算文本高度")]
 		HRESULT TextHeight(
 		[in] long hDC,
 		[in] BSTR strText,
 		[out, retval] long *retVal
 		);
 
-		[id(9), helpstring("画文本")]
+		[id(10), helpstring("画文本")]
 		HRESULT DrawText(
 		[in] long hDC, 
 		[in] BSTR strText,
@@ -471,7 +492,7 @@ import "ocidl.idl";
 		[in, defaultvalue(FALSE)] VARIANT_BOOL bFontHighQuality
 		);
 
-		[id(10), helpstring("画控件形状。例如，复选框、单选框、最大化、最小化、关闭按扭、菜单箭头等")]
+		[id(11), helpstring("画控件形状。例如，复选框、单选框、最大化、最小化、关闭按扭、菜单箭头等")]
 		HRESULT DrawControl(
 		[in] long hDC, 
 		[in] int X,
@@ -482,7 +503,7 @@ import "ocidl.idl";
 		[in] FrameControlStateConstants eState
 		);
 
-		[id(11), helpstring("画控件边缘特效。例如：凹下、突起等")]
+		[id(12), helpstring("画控件边缘特效。例如：凹下、突起等")]
 		HRESULT DrawControlEdge(
 		[in] long hDC, 
 		[in] int X, 
@@ -493,7 +514,7 @@ import "ocidl.idl";
 		[in] EdgeFlagConstants eFlags
 		);
 
-		[id(12), helpstring("画线")]
+		[id(13), helpstring("画线")]
 		HRESULT DrawLine(
 		[in] long hDC,
 		[in] int X1,
@@ -506,7 +527,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(13), helpstring("画圆")]
+		[id(14), helpstring("画圆")]
 		HRESULT DrawCircle(
 		[in] long hDC,
 		[in] int X,
@@ -523,7 +544,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(14), helpstring("画边框")]
+		[id(15), helpstring("画边框")]
 		HRESULT DrawBorder(
 		[in] long hDC, 
 		[in] int X,
@@ -536,7 +557,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nBorderWidth
 		);
 
-		[id(15), helpstring("画区域")]
+		[id(16), helpstring("画区域")]
 		HRESULT DrawArea(
 		[in] long hDC,
 		[in] int X,
@@ -550,7 +571,7 @@ import "ocidl.idl";
 		[in, defaultvalue(0)] long hAreaBitmap
 		);
 
-		[id(16), helpstring("拷贝区域")]
+		[id(17), helpstring("拷贝区域")]
 		HRESULT CopyArea(
 		[in] long hDestDC, 
 		[in] int X, 
@@ -564,7 +585,7 @@ import "ocidl.idl";
 		[in] int nSrcHeight
 		);
 
-		[id(17), helpstring("画区域及边框")]
+		[id(18), helpstring("画区域及边框")]
 		HRESULT DrawBox(
 		[in] long hDC,
 		[in] int X,
@@ -582,7 +603,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nBorderWidth
 		);
 
-		[id(18), helpstring("画透明区域及边框")]
+		[id(19), helpstring("画透明区域及边框")]
 		HRESULT DrawAlphaBox(
 		[in] long hDC,
 		[in] int X,
@@ -601,7 +622,7 @@ import "ocidl.idl";
 		[in, defaultvalue(100)] byte nAlpha
 		);
 
-		[id(19), helpstring("画圆角边框")]
+		[id(20), helpstring("画圆角边框")]
 		HRESULT DrawRoundBorder(
 		[in] long hDC, 
 		[in] int X,
@@ -615,7 +636,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nBorderWidth
 		);
 	
-		[id(20), helpstring("画圆角形区域")]
+		[id(21), helpstring("画圆角形区域")]
 		HRESULT DrawRoundArea(
 		[in] long hDC,
 		[in] int X,
@@ -630,7 +651,7 @@ import "ocidl.idl";
 		[in, defaultvalue(0)] long hAreaBitmap
 		);
 
-		[id(21), helpstring("画圆角区域及边框")]
+		[id(22), helpstring("画圆角区域及边框")]
 		HRESULT DrawRoundBox(
 		[in] long hDC,
 		[in] int X,
@@ -649,7 +670,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nBorderWidth
 		);
 
-		[id(22), helpstring("画透明圆角区域及边框")]
+		[id(23), helpstring("画透明圆角区域及边框")]
 		HRESULT DrawAlphaRoundBox(
 		[in] long hDC,
 		[in] int X,
@@ -669,7 +690,7 @@ import "ocidl.idl";
 		[in, defaultvalue(100)] byte nAlpha
 		);
 
-		[id(23), helpstring("画多边形区域")]
+		[id(24), helpstring("画多边形区域")]
 		HRESULT DrawPolyArea(
 		[in] long hDC, 
 		[in] SAFEARRAY(TPoint) *tPt, 
@@ -678,7 +699,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nBorderWidth
 		);
 
-		[id(24), helpstring("画焦点")]
+		[id(25), helpstring("画焦点")]
 		HRESULT DrawFocus(
 		[in] long hDC, 
 		[in] int X, 
@@ -687,7 +708,7 @@ import "ocidl.idl";
 		[in] int nHeight
 		);
 
-		[id(25), helpstring("画复选钩")]
+		[id(26), helpstring("画复选钩")]
 		HRESULT DrawCheck(
 		[in] long hDC,
 		[in] int X , 
@@ -698,7 +719,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(26), helpstring("画箭头")]
+		[id(27), helpstring("画箭头")]
 		HRESULT DrawArrow(
 		[in] long hDC, 
 		[in] int X, 
@@ -709,7 +730,7 @@ import "ocidl.idl";
 		[in, defaultvalue(0x000000)] OLE_COLOR clrColor
 		);
 
-		[id(27), helpstring("画关闭")]
+		[id(28), helpstring("画关闭")]
 		HRESULT DrawClose(
 		[in] long hDC, 
 		[in] int X, 
@@ -719,7 +740,7 @@ import "ocidl.idl";
 		[in, defaultvalue(2)] int nLineWidth
 		);
 
-		[id(28), helpstring("画还原")]
+		[id(29), helpstring("画还原")]
 		HRESULT DrawRestore(
 		[in] long hDC, 
 		[in] int X, 
@@ -729,7 +750,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(29), helpstring("画最大化")]
+		[id(30), helpstring("画最大化")]
 		HRESULT DrawMax(
 		[in] long hDC, 
 		[in] int X, 
@@ -739,7 +760,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(30), helpstring("画最小化")]
+		[id(31), helpstring("画最小化")]
 		HRESULT DrawMin(
 		[in] long hDC, 
 		[in] int X, 
@@ -749,7 +770,7 @@ import "ocidl.idl";
 		[in, defaultvalue(1)] int nLineWidth
 		);
 
-		[id(31), helpstring("画数字")]
+		[id(32), helpstring("画数字")]
 		HRESULT DrawDigit(
 		[in] long hDC,
 		[in] int X,
@@ -759,7 +780,7 @@ import "ocidl.idl";
 		[in, defaultvalue(0x0000FF)] OLE_COLOR clrColor
 		);
 
-		[id(32), helpstring("画字符")]
+		[id(33), helpstring("画字符")]
 		HRESULT DrawCharacter(
 		[in] long hDC,
 		[in] int X,
@@ -768,7 +789,7 @@ import "ocidl.idl";
 		[in, defaultvalue(0x000000)] OLE_COLOR clrColor
 		);
 
-		[id(33), helpstring("画渐变")]
+		[id(34), helpstring("画渐变")]
 		HRESULT DrawGradient(
 		[in] long hDC, 
 		[in] int X,
@@ -780,7 +801,7 @@ import "ocidl.idl";
 		[in] GradientDirectionConstants eDirection
 		);
 
-		[id(34), helpstring("画透明渐变")]
+		[id(35), helpstring("画透明渐变")]
 		HRESULT DrawAlphaGradient(
 		[in] long hDC, 
 		[in] int X,
@@ -793,7 +814,7 @@ import "ocidl.idl";
 		[in, defaultvalue(100)] byte nAlpha
 		);
  
-		[id(35), helpstring("位图透明拷贝(需要遮罩图片)")]
+		[id(36), helpstring("位图透明拷贝(需要遮罩图片)")]
 		HRESULT TransparentPaintImage(
 		[in] long hDestDC,
 		[in] int xDest, 
@@ -802,7 +823,7 @@ import "ocidl.idl";
 		[in] long hMask
 		);
 
-		[id(36), helpstring("位图透明拷贝(采用TransparentBlt API)")]
+		[id(37), helpstring("位图透明拷贝(采用TransparentBlt API)")]
 		HRESULT TransparentPaintArea( 
 		[in] long hDestDC, 
 		[in] int xDest, 
@@ -817,7 +838,7 @@ import "ocidl.idl";
 		[in] OLE_COLOR clrTransparentColor
 		);
 
-		[id(37), helpstring("位图透明拷贝(采用AlphaBlend API)")]
+		[id(38), helpstring("位图透明拷贝(采用AlphaBlend API). 如果hSrcDC<=0,则将桌面拷贝到hDestDC中")]
 		HRESULT TransparentPaintAlpha(
 		[in] long hDestDC, 
 		[in] int xDest,
@@ -832,7 +853,17 @@ import "ocidl.idl";
 		[in, defaultvalue(100)] byte nAlpha
 		);
 
-		[id(38), helpstring("画图标 hIcon图标句柄")]
+		[id(39), helpstring("画资源图标")]
+		HRESULT DrawResIcon(
+		[in] long hDC,
+		[in] int X,
+		[in] int Y,
+		[in] int nWidth,
+		[in] int nHeight,
+		[in] IconNameConstants eIconName
+		);
+
+		[id(40), helpstring("画图标. hIcon图标的句柄")]
 		HRESULT DrawIcon(
 		[in] long hDC,
 		[in] long hIcon, 
@@ -842,7 +873,7 @@ import "ocidl.idl";
 		[in] OLE_COLOR clrDisabledColor
 		);
 
-		[id(39), helpstring("画图片 hIcon位图句柄")]
+		[id(41), helpstring("画图片. hImage位图的句柄")]
 		HRESULT DrawImage(
 		[in] long hDC,
 		[in] long hImage,
@@ -853,7 +884,7 @@ import "ocidl.idl";
 		[in] ImageLayoutConstants eLayout
 		);
 
-		[id(40), helpstring("画透明位图或图标 hPic位图或图标句柄 clrMaskColor要屏蔽的颜色 clrDisabledColor不可用时的颜色")]
+		[id(42), helpstring("画透明位图或图标. hPic位图或图标的句柄, clrMaskColor要屏蔽的颜色, clrDisabledColor不可用时的颜色")]
 		HRESULT DrawPic(
 		[in] long hDC, 
 		[in] long hPic,
@@ -866,7 +897,7 @@ import "ocidl.idl";
 		[in, defaultvalue(TRUE)] VARIANT_BOOL bEnabled
 		);
 
-		[id(41), helpstring("颜色混合")]
+		[id(43), helpstring("颜色混合")]
 		HRESULT BlendColor(
 		[in] OLE_COLOR clrForeColor,
 		[in] OLE_COLOR clrBackColor,
@@ -875,20 +906,20 @@ import "ocidl.idl";
 		);
 
 
-		[id(42), helpstring("颜色透明")]
+		[id(44), helpstring("颜色透明")]
 		HRESULT AlphaColor(
 		[in] OLE_COLOR clrColor, 
 		[in] byte nAlpha,
 		[out, retval] long *retVal
 		);
 
-		[id(43), helpstring("颜色反转")]
+		[id(45), helpstring("颜色反转")]
 		HRESULT ReverseColor(
 		[in] OLE_COLOR clrColor,
 		[out, retval] long *retVal
 		);
 
-		[id(44), helpstring("转换颜色")]
+		[id(46), helpstring("转换颜色")]
 		HRESULT TranslateColor(
 		[in] OLE_COLOR clrColor, 
 		[in, defaultvalue(0)] long hPal,

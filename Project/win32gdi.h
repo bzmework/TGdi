@@ -33,11 +33,11 @@ public:
 	// btPatternBrush: 位图画刷
 	enum BrushTypeConstants
 	{
-		btDefaultBrush	= 0x0,
-		btSolidBrush	= 0x1,
+		btDefaultBrush = 0x0,
+		btSolidBrush = 0x1,
 		btIndirectBrush = 0x2,
-		btHatchBrush	= 0x3,
-		btPatternBrush	= 0x4
+		btHatchBrush = 0x3,
+		btPatternBrush = 0x4
 	};
 
 	// 画刷样式
@@ -52,17 +52,17 @@ public:
 	// BS_HOLLOW = BS_NULL: Hollow brush.
 	enum BrushStyleConstants
 	{
-		bsSolid			= BS_SOLID,
-		bsNull			= BS_NULL,
-		bsHatched		= BS_HATCHED,
-		bsPattern		= BS_PATTERN,
-		bsIndexed		= BS_INDEXED,
-		bsDibPattern	= BS_DIBPATTERN,
-		bsDibPatternPt	= BS_DIBPATTERNPT,
-		bsPattern8x8	= BS_PATTERN8X8,
+		bsSolid = BS_SOLID,
+		bsNull = BS_NULL,
+		bsHatched = BS_HATCHED,
+		bsPattern = BS_PATTERN,
+		bsIndexed = BS_INDEXED,
+		bsDibPattern = BS_DIBPATTERN,
+		bsDibPatternPt = BS_DIBPATTERNPT,
+		bsPattern8x8 = BS_PATTERN8X8,
 		bsDibPattern8x8 = BS_DIBPATTERN8X8,
-		bsMonoPattern	= BS_MONOPATTERN,
-		bsHollow    	= BS_NULL
+		bsMonoPattern = BS_MONOPATTERN,
+		bsHollow = BS_NULL
 	};
 
 	// 画刷图案样式
@@ -74,13 +74,13 @@ public:
 	// HS_DIAGCROSS: 45-degree crosshatch
 	enum BrushHatchConstants
 	{
-		hsHorizontal	= HS_HORIZONTAL,
-		hsVertical		= HS_VERTICAL,
-		hsFDiagonal 	= HS_FDIAGONAL,
-		hsBDiagonal		= HS_BDIAGONAL,
-		hsCross			= HS_CROSS,
-		hsDiagCross		= HS_DIAGCROSS,
-		hsSolid			= 0x8
+		hsHorizontal = HS_HORIZONTAL,
+		hsVertical = HS_VERTICAL,
+		hsFDiagonal = HS_FDIAGONAL,
+		hsBDiagonal = HS_BDIAGONAL,
+		hsCross = HS_CROSS,
+		hsDiagCross = HS_DIAGCROSS,
+		hsSolid = 0x8
 	};
 
 	//
@@ -93,9 +93,9 @@ public:
 	// ptIndirectPen: 指定样式、宽度、颜色的画笔
 	enum PenTypeConstants
 	{
-		ptDefaultPen	= 0x0,
-		ptSolidPen		= 0x1,
-		ptIndirectPen	= 0x2
+		ptDefaultPen = 0x0,
+		ptSolidPen = 0x1,
+		ptIndirectPen = 0x2
 	};
 
 	// 画笔样式
@@ -107,13 +107,13 @@ public:
 	// PS_NULL: The pen is invisible.
 	enum PenStyleConstants
 	{
-		psSolid			= PS_SOLID,
-		psDash			= PS_DASH,
-		psDot			= PS_DOT,
-		psDashDot		= PS_DASHDOT,
-		psDashDotDot	= PS_DASHDOTDOT,
-		psNull			= PS_NULL,
-		psInsideFrame	= PS_INSIDEFRAME
+		psSolid = PS_SOLID,
+		psDash = PS_DASH,
+		psDot = PS_DOT,
+		psDashDot = PS_DASHDOT,
+		psDashDotDot = PS_DASHDOTDOT,
+		psNull = PS_NULL,
+		psInsideFrame = PS_INSIDEFRAME
 	};
 
 	//
@@ -126,10 +126,10 @@ public:
 	// ftIndirectFont: 指定字体
 	enum FontTypeConstants
 	{
-		ftDefaultFont	= 0x0,
-		ftSystemFont	= 0x1,
-		ftIndirectFont	= 0x2,
-		ftExistFont		= 0x3
+		ftDefaultFont = 0x0,
+		ftSystemFont = 0x1,
+		ftIndirectFont = 0x2,
+		ftExistFont = 0x3
 	};
 
 	//
@@ -137,8 +137,8 @@ public:
 	//
 	enum GradientDirectionConstants
 	{
-		dHorizontal		= 0x0,
-		dVertical		= 0x1
+		dHorizontal = 0x0,
+		dVertical = 0x1
 	};
 
 	// DT_BOTTOM: Justifies the text to the bottom of the rectangle. This value is used only with the DT_SINGLELINE value.
@@ -179,40 +179,59 @@ public:
 	// DT_WORD_ELLIPSIS: Truncates any word that does not fit in the rectangle and adds ellipses.Compare with DT_END_ELLIPSIS and DT_PATH_ELLIPSIS.
 	enum TextFormatConstants
 	{
-		dtTop					= 0x00000000,
-		dtLeft					= 0x00000000,
-		dtCenter				= 0x00000001,
-		dtRight					= 0x00000002,
-		dtVCenter				= 0x00000004,
-		dtBottom				= 0x00000008,
-		dtWordBreak				= 0x00000010,
-		dtSingleLine			= 0x00000020,
-		dtExpandTabs			= 0x00000040,
-		dtTabStop				= 0x00000080,
-		dtNoClip				= 0x00000100,
-		dtExternAlleading		= 0x00000200,
-		dtCalcRect				= 0x00000400,
-		dtNoPrefix				= 0x00000800,
-		dtInternal				= 0x00001000,
-		dtEditControl			= 0x00002000,
-		dtPathEllipsis  		= 0x00004000,
-		dtEndEllipsis			= 0x00008000,
-		dtModifyString			= 0x00010000,
-		dtRtLReading			= 0x00020000,
-		dtWordEllipsis			= 0x00040000,
-		dtNoFullWidthCharBreak	= 0x00080000,
-		dtHidePrefix			= 0x00100000,
-		dtPrefixOnly			= 0x00200000,
-		dtPLotter				= 0x00000000,
-		dtRasDisplay			= 0x00000001,
-		dtRasPrinter			= 0x00000002,
-		dtRasCamera				= 0x00000003,
-		dtCharStream			= 0x00000004,
-		dtMetaFile				= 0x00000005,
-		dtDispFile				= 0x00000006,
-		dtDefault				= 0x00000024,//DT_LEFT or DT_VCENTER or DT_SINGLELINE
-		dtDefault1				= 0x00040024,//DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
-		dtDefault2				= 0x00040025 //DT_CENTER or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
+		dtTop = 0x00000000,
+		dtLeft = 0x00000000,
+		dtCenter = 0x00000001,
+		dtRight = 0x00000002,
+		dtVCenter = 0x00000004,
+		dtBottom = 0x00000008,
+		dtWordBreak = 0x00000010,
+		dtSingleLine = 0x00000020,
+		dtExpandTabs = 0x00000040,
+		dtTabStop = 0x00000080,
+		dtNoClip = 0x00000100,
+		dtExternAlleading = 0x00000200,
+		dtCalcRect = 0x00000400,
+		dtNoPrefix = 0x00000800,
+		dtInternal = 0x00001000,
+		dtEditControl = 0x00002000,
+		dtPathEllipsis = 0x00004000,
+		dtEndEllipsis = 0x00008000,
+		dtModifyString = 0x00010000,
+		dtRtLReading = 0x00020000,
+		dtWordEllipsis = 0x00040000,
+		dtNoFullWidthCharBreak = 0x00080000,
+		dtHidePrefix = 0x00100000,
+		dtPrefixOnly = 0x00200000,
+		dtPLotter = 0x00000000,
+		dtRasDisplay = 0x00000001,
+		dtRasPrinter = 0x00000002,
+		dtRasCamera = 0x00000003,
+		dtCharStream = 0x00000004,
+		dtMetaFile = 0x00000005,
+		dtDispFile = 0x00000006,
+		dtDefault = 0x00000024,//DT_LEFT or DT_VCENTER or DT_SINGLELINE
+		dtDefault1 = 0x00040024,//DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
+		dtDefault2 = 0x00040025 //DT_CENTER or DT_VCENTER or DT_SINGLELINE or DT_WORD_ELLIPSIS
+	};
+
+	// IDI_APPLICATION: Default application icon.
+	// IDI_ASTERIS: Same as IDI_INFORMATION.
+	// IDI_ERROR: Hand-shaped icon.
+	// IDI_EXCLAMATION: Same as IDI_WARNING.
+	// IDI_HAND: Same as IDI_ERROR.
+	// IDI_INFORMATION:Asterisk icon.
+	// IDI_QUESTION: Question mark icon.
+	// IDI_WARNING: Exclamation point icon.
+	// IDI_WINLOGO: Windows logo icon. Windows XP: Default application icon.
+	enum IconNameConstants
+	{
+		idApplication	= 0x7F00, //32512
+		idError			= 0x7F01, //32513
+		idQuestion		= 0x7F02, //32514
+		idWarning		= 0x7F03, //32515
+		idInformation	= 0x7F04, //32516
+		idWinlog		= 0x7F05  //32517
 	};
 
 	// DFC_CAPTION: Title bar
@@ -388,6 +407,9 @@ public:
 
 	//是否NT操作系统
 	static BOOL IsWinNT();
+
+	//是否为XP及以后的操作系统
+	static BOOL IsWinXpOrLater();
 
 	//将对象选入设备环境
 	static HGDIOBJ SelectAObject(HDC hDC, HGDIOBJ hObject);
@@ -796,6 +818,15 @@ public:
 		INT nSrcWidth, 
 		INT nSrcHeight,
 		BYTE nAlpha = 100);
+
+	//画资源图标
+	static VOID DrawResIcon(
+		HDC hDC,
+		INT X,
+		INT Y,
+		INT nWidth,
+		INT nHeight,
+		IconNameConstants eIconName);
 
 	//画图标
 	static VOID DrawIcon(

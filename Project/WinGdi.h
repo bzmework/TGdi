@@ -106,6 +106,11 @@ public:
 	/*[out, retval]*/ VARIANT_BOOL *retVal
 	);
 
+	//是否XP及以后的操作系统
+	STDMETHOD(IsWinXpOrLater)(
+	/*[out, retval]*/ VARIANT_BOOL* retVal
+	);
+
 	//将对象选入设备环境"
 	STDMETHOD(SelectObject)(
 	/*[in]*/ long hDC, 
@@ -548,6 +553,16 @@ public:
 	/*[in]*/ int nSrcWidth, 
 	/*[in]*/ int nSrcHeight,
 	/*[in, defaultvalue(100)]*/ byte nAlpha
+	);
+
+	//画资源图标
+	STDMETHOD(DrawResIcon)(
+	/*[in]*/ long hDC,
+	/*[in]*/ int X,
+	/*[in]*/ int Y,
+	/*[in]*/ int nWidth,
+	/*[in]*/ int nHeight,
+	/*[in]*/ IconNameConstants eIconName
 	);
 
 	//画图标
